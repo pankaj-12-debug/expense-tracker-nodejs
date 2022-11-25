@@ -20,7 +20,16 @@ btn.addEventListener('click', (e) => {
 
     axios.post('http://localhost:8000/sign-up', obj)
         .then(() => {
+            //console.log(result);
             console.log('success');
+         // alert('Successfuly signed up');
+        })
+        .then(response=>{
+            console.log(response);
             alert('Successfuly signed up');
+        })
+        .catch(response => {
+            console.log(response);
+            alert('User already exists, Please Login');
         });
 })
