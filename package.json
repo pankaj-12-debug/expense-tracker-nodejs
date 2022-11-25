@@ -1,0 +1,31 @@
+{
+  "name": "expense-tracker",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pankaj-12-debug/expense-tracker-nodejs.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pankaj-12-debug/expense-tracker-nodejs/issues"
+  },
+  "homepage": "https://github.com/pankaj-12-debug/expense-tracker-nodejs#readme",
+  "dependencies": {
+    "bcrypt": "^5.1.0",
+    "body-parser": "^1.20.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "expres": "^0.0.5",
+    "express": "^4.18.2",
+    "mysql2": "^2.3.3",
+    "nodemon": "^2.0.20",
+    "sequelize": "^6.25.8"
+  }
+}

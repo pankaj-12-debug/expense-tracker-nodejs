@@ -18,7 +18,7 @@ btn.addEventListener('click', (e) => {
     }
 
 
-    axios.post('https://crudcrud.com/api/c38f5b09a81b4d548de706fa646864c6/sign-up', obj)
+    axios.post('http://localhost:8000/sign-up', obj)
         .then(() => {
             console.log('success');
             alert('Successfuly signed up');
