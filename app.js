@@ -6,6 +6,7 @@ const sequelize=require('./util/database')
 const app=express();
 const SigupRouter=require('./route/signup')
 app.use(bodyParser.json());
+//app.use(bodyParser.urlencoded({extended:false}));
 app.use(cors());
 app.use(SigupRouter);
 

@@ -15,9 +15,11 @@ btn.addEventListener('click',(e)=>{
     axios.post('http://localhost:8000/login', obj)
     .then(response=>{
         console.log('login work');
-        alert('done');
+        console.log(response);
+        alert('login successful');
     })
     .catch(err=>{
         console.log(err);
+        alert('email does not exist please signup');
     })
 })
