@@ -19,17 +19,27 @@ btn.addEventListener('click', (e) => {
 
 
     axios.post('http://localhost:8000/sign-up', obj)
-        .then(() => {
+       // .then(() => {
             //console.log(result);
-            console.log('success');
+         //   console.log('success');
          // alert('Successfuly signed up');
-        })
+        //})
         .then(response=>{
-            console.log(response);
+            console.log('success');
+            console.log(response.data);
+            if(response.status===201){
             alert('Successfuly signed up');
+            window.location.href='../login/login.html'
+            }
+            else{
+                alert('Something is wrong');
+            }
         })
         .catch(response => {
-            console.log(response);
+          //  console.log(response);
+            if(response.status===403)
+            {
             alert('User already exists, Please Login');
+            }
         });
 })

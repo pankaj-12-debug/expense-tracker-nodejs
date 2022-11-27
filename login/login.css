@@ -1,0 +1,45 @@
+* {
+    box-sizing: border-box;
+    margin: 0%;
+    padding: 0%;
+    text-align: center;
+}
+
+h1 {
+    font-size: 2rem;
+    margin-top: 30px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.form-input {
+    width: 20%; 
+    margin: auto;
+    margin-top: 5px;
+    text-align: initial;
+    padding: 5px;
+}
+
+.form-label {
+    text-align: left;
+    margin-left: 40%;
+    padding-top: 20px;
+}
+
+.form-btn {
+    width: 4%; 
+    margin: 29px auto;
+    margin-bottom: 3px;
+    padding: 9px 55px;
+    box-sizing: initial;
+    background: black;
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    border-radius: 3px;
+    cursor: pointer;
+}

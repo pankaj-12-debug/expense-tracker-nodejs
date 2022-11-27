@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="./login.css">
+</head>
+<body>
+    <h1>Login</h1>
+    <form action="">
+        <label for="email" class="form-label">E-Mail</label>
+        <input type="email" class="form-input" id="email" required>
+        <br>
+        <label for="pass" class="form-label">Password</label>
+        <input type="password" class="form-input" id="pass" required>
+        <br>
+        <div>
+            <button type="submit" class="form-btn" id="btn-login">Login</button>
+        </div>
+        <p>Don't have a account? <a href="../sign-up/signup.html">sign up</a></p>
+    </form>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.0.0-alpha.1/axios.min.js"></script>
+    <script src="./login.js"></script>
+</body>
+</html>
