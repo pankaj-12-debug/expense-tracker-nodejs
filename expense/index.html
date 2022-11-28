@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>expenses</title>
+<link rel="stylesheet" href="./style.css">
+</head>
+<body>
+<h1>Daily Expense</h1>
+<form action="">
+    <label for="amount" class="form-label">Amount</label>
+    <input type="number" class="form-input" id="amount" required>
+    <label for="description" class="form-label" >Description</label>
+    <input type="text" class="form-input" id="description" required>
+    <label for="category" class="form-label">Category</label>
+    <select class="form-input" id="category" required>
+           <option value="food">Food</option>
+            <option value="petrol">Petrol</option>
+            <option value="salary">Salary</option>
+    </select>
+    <button type="submit" class="form-btn" id="btn-add">Add Expense</button>
+</form>    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.26.1/axios.min.js"></script>
+<script src="./expense.js"></script>
+</body>
+</html>

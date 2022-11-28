@@ -17,6 +17,7 @@ btn.addEventListener('click',(e)=>{
         console.log('login work');
         console.log(response);
         alert('login successful');
+        window.location.href='../expense/index.html';
     })
     .catch(err=>{
         console.log(err);
