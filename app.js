@@ -5,11 +5,12 @@ const cors=require('cors');
 const sequelize=require('./util/database')
 const app=express();
 const SigupRouter=require('./route/signup')
+const ExpenseRouter=require('./route/expense')
 app.use(bodyParser.json());
 //app.use(bodyParser.urlencoded({extended:false}));
 app.use(cors());
 app.use(SigupRouter);
-
+app.use(ExpenseRouter);
 
 sequelize
   .sync()
