@@ -1,7 +1,11 @@
 const User=require('../model/user');
 const bcrypt=require('bcrypt');
-const jsonwebtoken=require('jsonwebtoken');
+const jwt=require('jsonwebtoken');
 const saltRounds = 10;
+function generateAccessToken(id) {
+    return jwt.sign({userId:id}, 'secretkey');
+}
+//post request signup
 exports.postData=(req,res,next)=>{
    const name=req.body.name;
    const email=req.body.email;
@@ -42,7 +46,7 @@ exports.loginData=(req,res,next)=>{
                 {
                     console.log(JSON.stringify(user));
                   //  const jwtToken = generateAccessToken(user[0].id);
-                    res.status(200).json({ success: true, message: 'successfully logged in'});
+                    res.status(200).json({ success: true, message: 'successfully logged in',token:generateAccessToken(user[0].id)});
                 }
                 else {
                     return res.status(401).json({success: false, message: 'password do not match'});

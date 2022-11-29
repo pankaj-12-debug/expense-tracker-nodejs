@@ -12,7 +12,8 @@ exports.postExpense=(req,res,next)=>{
     Expense.create({
         amount:amount,
         description:description,
-        category:category
+        category:category,
+        userId:req.user.id
     }).then(()=>{
         res.status(201).json({success:true,
             message:'expense is working'})
@@ -23,7 +24,7 @@ exports.postExpense=(req,res,next)=>{
     })
 }
 exports.getExpense=(req,res,next)=>{
-    Expense.findAll().then(expenses=>{
+    Expense.findAll({where:{userId:req.user.id}}).then(expenses=>{
         //return res.send(expenses);
        return res.status(200).json({expenses,success:true});
     })

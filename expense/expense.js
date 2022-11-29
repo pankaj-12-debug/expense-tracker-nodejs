@@ -1,5 +1,5 @@
 //const expense = require("../model/expense");
-
+const token = localStorage.getItem('token');
 const amount=document.getElementById('amount');
 const description=document.getElementById('description');
 const category=document.getElementById('category');
@@ -16,7 +16,7 @@ btn.addEventListener('click',(e)=>{
         category:category1
     }
     console.log(obj);
-    axios.post('http://localhost:8000/addexepens', obj)
+    axios.post('http://localhost:8000/addexepens', obj,{headers:{'Authorization':token}})
     .then(response=>{
         console.log('expense working');
         //console.log(response);
@@ -29,7 +29,7 @@ btn.addEventListener('click',(e)=>{
     showExpense(obj);
 })
 window.addEventListener('DOMContentLoaded',()=>{
-    axios.get('http://localhost:8000/getexepens').then(response=>{
+    axios.get('http://localhost:8000/getexepens',{headers:{'Authorization':token}}).then(response=>{
        // showExpense(expense);
         console.log('take get request');
         response.data.expenses.forEach(expense => {
@@ -54,7 +54,7 @@ function showExpense(expense)
 }
 function deleteExpense(expenseid){
     console.log(expenseid)
-    axios.delete(`http://localhost:8000/deleteExpens/${expenseid}`)
+    axios.delete(`http://localhost:8000/deleteExpens/${expenseid}`,{headers:{'Authorization':token}})
     .then(response=>{
         removeUserFromScreen(expenseid);
       console.log('done');
