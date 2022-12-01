@@ -18,6 +18,7 @@ btn.addEventListener('click',(e)=>{
         console.log(response);
         alert('login successful');
         localStorage.setItem('token',response.data.token);
+        localStorage.setItem('userDetails', JSON.stringify(response.data.user));
         window.location.href='../expense/index.html';
     })
     .catch(err=>{
@@ -25,3 +26,6 @@ btn.addEventListener('click',(e)=>{
         alert('email does not exist please signup');
     })
 })
+function forgotpassword(){
+    window.location.href="../forgotPassword/index.html"
+}
