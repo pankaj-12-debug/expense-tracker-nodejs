@@ -1,6 +1,51 @@
 //const { response } = require('express');
 const Expense=require('../model/expense');
+const AWS=require('aws-sdk');
  
+function uploadToS3(data,filename)
+{
+    const BUCKET_NAME='expensetrackingapp';
+    const IAM_USER_KEY='AKIA24E2ZAQGBUWCTZHV';
+    const IAM_USER_SECRET='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';
+
+    let s3bucket=new AWS.S3({
+        accessKeyId:IAM_USER_KEY,
+        secretAccessKey:IAM_USER_SECRET,
+      //  Bucket:BUCKET_NAME
+    })
+    
+        var params={
+            Bucket:BUCKET_NAME,
+            Key:filename,
+            Body:data,
+            ACL:'public-read'
+        }
+        return new Promise((resolve,reject)=>{
+            s3bucket.upload(params,(err,s3response)=>{
+                if(err){
+                    console.log('something went wrong',err)
+                    reject(err);
+                }
+                else{
+                 //   console.log('sucess',s3response);
+                    resolve(s3response.Location);
+                }
+            })
+        })
+}
+
+exports.download=async(req,res)=>{
+    const expenses=await req.user.getExpenses();
+    console.log(expenses);
+    const stringifiedExpenses=JSON.stringify(expenses);
+    const userId=req.user.id;
+    const filename=`Expense${userId}/${new Date}.txt`;
+    const fileUrl=await uploadToS3(stringifiedExpenses,filename);
+    console.log(fileUrl);
+    res.status(200).json({fileUrl,success:true});
+}
+
+
 exports.postExpense=(req,res,next)=>{
     const amount=req.body.amount;
     const description=req.body.description;

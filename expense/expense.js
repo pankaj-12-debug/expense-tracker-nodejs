@@ -69,6 +69,27 @@ function removeUserFromScreen(expenseid){
     const expenseElemId=`expense-${expenseid}`;
     document.getElementById(expenseElemId).remove();
 }
+//download
+function download(){
+    axios.get('http://localhost:8000/download', { headers: {"Authorization" : token} })
+    .then((response) => {
+        if(response.status === 200){
+            //the bcakend is essentially sending a download link
+            //  which if we open in browser, the file would download
+            var a = document.createElement("a");
+            a.href = response.data.fileUrl;
+            a.download = 'myexpense.csv';
+            a.click();
+        } else {
+            throw new Error(response.data.message)
+        }
+
+    })
+    .catch((err) => {
+        console.log(err);
+        console.log('err');
+    });
+}
 //razorpay added
 document.getElementById('rzp-button').onclick = async function (e) {
     console.log('razorpay');

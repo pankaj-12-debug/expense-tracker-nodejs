@@ -19,6 +19,7 @@
   "homepage": "https://github.com/pankaj-12-debug/expense-tracker-nodejs#readme",
   "dependencies": {
     "@sendgrid/mail": "^7.7.0",
+    "aws-sdk": "^2.1267.0",
     "bcrypt": "^5.1.0",
     "body-parser": "^1.20.1",
     "cors": "^2.8.5",
