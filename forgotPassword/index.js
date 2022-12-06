@@ -1,6 +1,6 @@
 function forgotpassword(e){
     e.preventDefault();
-    console.log(e.target.name);
+   // console.log(e.target.name);
     const form = new FormData(e.target);
 
     const userDetails = {

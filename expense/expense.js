@@ -90,6 +90,18 @@ function download(){
         console.log('err');
     });
 }
+function showReports(){
+    axios.get('http://localhost:8000/get-reports', { headers: { 'Authorization': token } })
+        .then(res=>{
+            console.log(res.data);
+            document.getElementById('show-reports').innerHTML= '';
+            res.data.forEach(report=>{
+                document.getElementById('show-reports').innerHTML+= `
+                    <li id="${report.id}" style="list-style:none;"><a href="${report.fileUrl}" style="text-decoration:none; color:black;">${report.fileUrl}</a></li>
+                `;
+            })
+        }).catch(err=>console.log(err));
+}
 //razorpay added
 document.getElementById('rzp-button').onclick = async function (e) {
     console.log('razorpay');
