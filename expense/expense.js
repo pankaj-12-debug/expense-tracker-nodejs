@@ -1,5 +1,5 @@
 //const expense = require("../model/expense");
-//const userId = localStorage.getItem('userId');
+
 const token = localStorage.getItem('token');
 const amount=document.getElementById('amount');
 const description=document.getElementById('description');
@@ -52,7 +52,16 @@ function showExpense(expense)
         <button onclick='deleteExpense(${expense.id})'>
         Delete Expense</button>
         </li>`
+ 
 }
+
+
+
+
+
+
+
+
 function deleteExpense(expenseid){
     console.log(expenseid)
     axios.delete(`http://localhost:8000/deleteExpens/${expenseid}`,{headers:{'Authorization':token}})

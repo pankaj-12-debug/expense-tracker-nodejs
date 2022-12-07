@@ -56,13 +56,14 @@ exports.postExpense=(req,res,next)=>{
 }
 exports.getExpense=(req,res,next)=>{
     Expense.findAll({where:{userId:req.user.id}}).then(expenses=>{
-        //return res.send(expenses);
+      //  return res.send(expenses);
        return res.status(200).json({expenses,success:true});
     })
     .catch(err=>{
         return res.status(500).json({error:err,success:false});
     })
 }
+
 exports.deleteExpense=(req,res,next)=>{
     const expenseid=req.params.expenseid;
    // console.log(id);
