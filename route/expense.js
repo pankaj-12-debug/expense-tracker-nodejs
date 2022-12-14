@@ -6,5 +6,7 @@ router.post('/addexepens',userAuthenticate.authenticate,constroller.postExpense)
 router.get('/download',userAuthenticate.authenticate,constroller.download);
 router.get('/get-reports',userAuthenticate.authenticate,constroller.getReports);
 router.get('/getexepens',userAuthenticate.authenticate,constroller.getExpense);
-router.delete('/deleteExpens/:expenseid',userAuthenticate.authenticate,constroller.deleteExpense);
+router.delete('/deleteExpens/:expenseId',userAuthenticate.authenticate,constroller.deleteExpense);
+//router.get('/getAllExpense',constroller.getAllExpense);
+//router.get('/showExpense',constroller.showExpense);
 module.exports=router;

@@ -18,3 +18,4 @@ function forgotpassword(e){
        document.body.innerHTML += `<div style="color:red;">${err} <div>`;
     })
 }
+

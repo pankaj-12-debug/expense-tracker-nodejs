@@ -1,5 +1,7 @@
 //const expense = require("../model/expense");
 
+//const expense = require("../model/expense");
+
 const token = localStorage.getItem('token');
 const amount=document.getElementById('amount');
 const description=document.getElementById('description');
@@ -20,64 +22,170 @@ btn.addEventListener('click',(e)=>{
     axios.post('http://localhost:8000/addexepens', obj,{headers:{'Authorization':token}})
     .then(response=>{
         console.log('expense working');
-        //console.log(response);
-       // showExpense(response.data);
+
+        const expenseContainer = document.getElementById('expense-display');
+
+        const id= response.data.expense.id;
+        const div = document.createElement('div');
+        div.innerHTML = `
+            <div class='display-expense-inside' id='display-${id}'>
+                <span>${amount}</span>
+                <span>${description}</span>
+                <span>${category}</span>
+            <button id='del-btn-inside' onclick='deletee(${id})'>Delete</button>
+            </div>`;
+    
+        expenseContainer.appendChild(div);
+
+
         alert('expenses successful');
     })
     .catch(err=>{
         console.log('not take post request');
     })
-    showExpense(obj);
+  //  showExpense(obj);
 })
-window.addEventListener('DOMContentLoaded',()=>{
-    axios.get('http://localhost:8000/getexepens',{headers:{'Authorization':token}}).then(response=>{
-       // showExpense(expense);
-        console.log('take get request');
-        response.data.expenses.forEach(expense => {
-            showExpense(expense);
-        });
+//remove expense
+function deletee(expenseId) {
+    // console.log(token)
+    axios.delete(`http://localhost:8000/deleteExpens/${expenseId}`,{headers:{'Authorization':token}})
+        .then(response => {
+            console.log(response.data);
+            console.log('deleted done');
+            alert('deleted successfully');
+        }).catch(err => console.log('err'));
+
+    document.getElementById(`display-${expenseId}`).remove();
+}
+/////////
+window.addEventListener('DOMContentLoaded', () => {
+    //get-expenses
+    const limit = localStorage.getItem('pageLimit');
+    axios.get(`http://localhost:8000/getexepens?limit=${limit}`, { headers: { 'Authorization': token } })
+        .then(response => {
+            // console.log(response.data);
+            showExpensesNew(response);
+        }).catch(err => console.log(err));
+})
+
+
+//daily-expense
+function showExpensesNew(response) {
+    const displayDiv = document.getElementById('expense-display');
+    displayDiv.innerHTML =''
+
+    response.data.expense.forEach(expense => {
+        const div = `
+            <div class='display-expense-inside' id='display-${expense.id}'>
+                <span>${expense.amount}</span>
+                <span>${expense.description}</span>
+                <span>${expense.category}</span>
+            <button id='del-btn-inside' onclick='deletee(${expense.id})'>Delete</button>
+            </div>`;
+
+        displayDiv.innerHTML += div;
+    })
+    //pagination
+    const pagination = document.getElementById('pagination');
+    pagination.classList.add('pagination');
+    let paginationChild = '';
+
+    if (response.data.pagination.currentPage !== 1 && response.data.pagination.previousPage !== 1) {
+        paginationChild += `<button class='pagination-btn' id='pagination' onclick='paginationFunc(${1})'>First</button>`;
+    }
+
+    if (response.data.pagination.hasPreviousPage) {
+        paginationChild += `<button class='pagination-btn' id='pagination' onclick='paginationFunc(${response.data.pagination.previousPage})'>Prev</button>`;
+    }
+
+    paginationChild += `<button class='pagination-btn' id='pagination' onclick='paginationFunc(${response.data.pagination.currentPage})'>${response.data.pagination.currentPage}</button>`;
+
+    if (response.data.pagination.hasNextPage) {
+        paginationChild += `<button class='pagination-btn' id='pagination' onclick='paginationFunc(${response.data.pagination.nextPage})'>Next</button>`;
+    }
+
+    if (response.data.pagination.lastPage !== response.data.pagination.currentPage && response.data.pagination.nextPage !== response.data.pagination.lastPage) {
+        paginationChild += `<button class='pagination-btn' id='pagination' onclick='paginationFunc(${response.data.pagination.lastPage})'>Last</button>`;
+    }
+
+    pagination.innerHTML = paginationChild;
+}
+
+
+function paginationFunc(page) {
+    const limit = localStorage.getItem('pageLimit');
+    console.log(limit)
+    axios.get(`http://localhost:8000/getexepens?page=${page}&limit=${limit}`, { headers: { 'Authorization': token } })
+        .then(response => {
+            console.log(response.data)
+
+            showExpensesNew(response);
+        })
+        .catch(err => {
+            console.log(err);
+        })
+}
+
+function newLimit() {
+    const limit = document.getElementById('page').value;
+    localStorage.setItem('pageLimit', limit);
+    paginationFunc(1);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+// doing myself
+//window.addEventListener('DOMContentLoaded',()=>{
+  //  axios.get('http://localhost:8000/getexepens',{headers:{'Authorization':token}})
+    //.then(response=>{
+      //  console.log('take get request');
+       // response.data.expenses.forEach(expense => {
+        //    showExpense(expense);
+        //});
         
-    }).catch(err=>{
-        console.log('err');
-    })
-})
+    //}).catch(err=>{
+      //  console.log('err');
+    //})
+//})
  
-function showExpense(expense)
-{
-    const parentElement=document.getElementById('listOfExpense');
-        const expenseElemId=`expense-${expense.id}`;
-        parentElement.innerHTML+=`
-        <li id=${expenseElemId}>
-         Amount: ${expense.amount},Description: ${expense.description},Category: ${expense.category}
-        <button onclick='deleteExpense(${expense.id})'>
-        Delete Expense</button>
-        </li>`
- 
-}
-
-
-
-
-
-
-
-
-function deleteExpense(expenseid){
-    console.log(expenseid)
-    axios.delete(`http://localhost:8000/deleteExpens/${expenseid}`,{headers:{'Authorization':token}})
-    .then(response=>{
-        removeUserFromScreen(expenseid);
-      console.log('done');
-    }).catch(err=>{
-        console.log('err');
-    })
- //   removeUserFromScreen(expenseid);
-}
-function removeUserFromScreen(expenseid){
+//function showExpense(expense)
+//{
   //  const parentElement=document.getElementById('listOfExpense');
-    const expenseElemId=`expense-${expenseid}`;
-    document.getElementById(expenseElemId).remove();
-}
+    //    const expenseElemId=`expense-${expense.id}`;
+      //  parentElement.innerHTML+=`
+       // <li id=${expenseElemId}>
+        // Amount: ${expense.amount},Description: ${expense.description},Category: ${expense.category}
+        //<button onclick='deleteExpense(${expense.id})'>
+        //Delete Expense</button>
+        //</li>`
+ 
+//}
+
+//function deleteExpense(expenseid){
+  //  console.log(expenseid)
+   // axios.delete(`http://localhost:8000/deleteExpens/${expenseid}`,{headers:{'Authorization':token}})
+   // .then(response=>{
+    //    removeUserFromScreen(expenseid);
+     // console.log('done');
+    //}).catch(err=>{
+     //   console.log('err');
+    //})
+//}
+//function removeUserFromScreen(expenseid){
+  
+  //  const expenseElemId=`expense-${expenseid}`;
+    //document.getElementById(expenseElemId).remove();
+//}
+///////////////////////////////////////////////////////////////////////////////////
 //download
 function download(){
     axios.get('http://localhost:8000/download', { headers: {"Authorization" : token} })
@@ -111,6 +219,9 @@ function showReports(){
             })
         }).catch(err=>console.log(err));
 }
+
+
+
 //razorpay added
 document.getElementById('rzp-button').onclick = async function (e) {
     console.log('razorpay');
@@ -156,3 +267,4 @@ document.getElementById('rzp-button').onclick = async function (e) {
   alert(response.error.metadata.payment_id);
  });
 }
+///leadboard

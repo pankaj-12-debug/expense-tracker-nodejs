@@ -47,3 +47,113 @@ option {
     border-radius: 3px;
     cursor: pointer;
 }
+
+/**********************Daily Expense*******************/
+.expense-display-container {
+    align-items: center;
+    margin: 10px auto;
+    width: 90%;
+    min-height: 450px;
+    background: white;
+}
+
+.expense-display-heading {
+    font-weight: bold;
+    color: white;
+    background: rgb(0, 173, 0);
+    padding: 10px 0;
+    border: solid black 1px;
+    border-bottom: none;
+}
+
+.expense-display {
+    border: solid 1px black;
+    min-height: 200px;
+    /* overflow: hidden;
+    overflow-y: scroll; */
+}
+
+
+.display-expense-inside {
+    display: flex;
+    justify-content: space-evenly;
+    border-bottom: 1px solid #ccccff;
+    padding: 12px;
+}
+
+.display-expense-inside span {
+    min-width: 5rem;
+}
+
+#del-btn-inside {
+    background-color: red;
+    padding: 2px 5px;
+    color: white;
+    border: none;
+    font-weight: bold;
+}
+
+
+/************Pagination**********/
+.pagination {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.pagination-btn {
+    text-decoration: none;
+    font-weight: bold;
+    color: green;
+    padding: 5px;
+    border: 1px solid green;
+    margin: 0 0.7rem;
+    cursor: pointer;
+    font-size: 110%;
+    border-radius: 5px;
+    width: 4rem;
+}
+
+.pagination button:hover,
+.pagination button:active,
+.pagination button.active {
+  background: #00695c;
+  color: white;
+}
+
+@media only screen and (min-width: 1000px) {
+    .parent-container{
+        display: flex;
+        justify-content: space-around;
+    }
+
+    form {
+        width: 300px;
+        float: left;
+        margin-top: 50px;
+        height: 300px;
+    }
+
+    form div{
+        padding: 0;
+    }
+
+    .expense-display-container {
+        width: 40%;
+        float: left;
+        padding: 0 20px;
+        height: 500px;
+    }
+
+    .expense-display-heading {
+        display: flex;
+        justify-content: space-evenly;
+        padding-right: 150px;
+    }
+
+    .leaderboard-container {
+        width: 30%;
+        float: right;
+        margin-top: 10px;
+        height: 500px;
+    }
+}

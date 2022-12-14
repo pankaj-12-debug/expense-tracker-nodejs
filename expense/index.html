@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-<h1>Daily Expense</h1>
+<h1> Expense</h1>
 <form action="">
     <label for="amount" class="form-label">Amount</label>
     <input type="number" class="form-input" id="amount" required>
@@ -22,10 +22,31 @@
     </select>
     <button type="submit" class="form-btn" id="btn-add">Add Expense</button>
 </form>    
-<ul id="listOfExpense">
+<!--<ul id="listOfExpense">
     
-</ul>
-<section class="pagination" id="pagination"></section>
+</ul>-->
+<div class="expense-display-container">
+    <h1>Daily Expense</h1>
+    <section class="select-pages">
+        <p>Select no of pages</p>
+        <select name="page" id="page">
+            <option value="5">5</option>
+            <option value="8">8</option>
+            <option value="10">10</option>
+            <option value="15">15</option>
+        </select>
+        <button id="new-limit" onclick="newLimit()">Get Expenses</button>
+    </section>
+    <div class="expense-display-heading">
+        <span>Amount</span>
+        <span>Description</span>
+        <span>Category</span>
+    </div>
+    <div class="expense-display" id="expense-display">
+    </div>
+    <section class="pagination" id="pagination"></section>
+
+   
 <button id="rzp-button">Buy Premium</button>
 <button onclick="download()" id="downloadexpense">Download file</button>
 <button onclick="showReports()">Show Reports</button>   
